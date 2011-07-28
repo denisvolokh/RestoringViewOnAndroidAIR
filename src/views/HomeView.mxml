@@ -3,10 +3,23 @@
 					 xmlns:s="library://ns.adobe.com/flex/spark"
 					 title="HomeView"
 					 xmlns:views="views.*"
-					 controlsForSaving="{ [input, check, slider, buttonbar, radiogroup1] }">
+					 savedControls="{ [input, check, slider, buttonbar, radiogroup1] }">
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
+			
+			import spark.events.TextOperationEvent;
+			
+			protected function input1_changeHandler(event:TextOperationEvent):void
+			{
+				saveProperty(input1, "text");
+			}
+			
+			protected function check1_changeHandler(event:Event):void
+			{
+				saveProperty(check1, "selected");
+			}
+			
 		]]>
 	</fx:Script>
 
@@ -37,12 +50,17 @@
 	</s:VGroup>
 	
 	<s:VGroup horizontalAlign="center">
-		<s:Label text="Excluded controls:" width="100%"/>
+		<s:Label text="Save manually:" 
+				 width="100%"/>
 		<s:TextInput id="input1"
-					 width="90%"/>
-		<s:CheckBox id="check1" label="Check Box"/>
+					 width="90%"
+					 change="input1_changeHandler(event)"/>
+		<s:CheckBox id="check1" 
+					label="Check Box"
+					change="check1_changeHandler(event)"/>
 	</s:VGroup>
 		
-	<s:Button label="Leave this page" click="{ navigator.pushView(DummyView) }"/>
+	<s:Button label="Leave this page" 
+			  click="{ navigator.pushView(DummyView) }"/>
 
 </views:RestoringView>
