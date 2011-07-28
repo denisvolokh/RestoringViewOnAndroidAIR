@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<views:RestoringView xmlns:fx="http://ns.adobe.com/mxml/2009"
+					 xmlns:s="library://ns.adobe.com/flex/spark"
+					 title="HomeView"
+					 xmlns:views="views.*"
+					 controlsForSaving="{ [input, check, slider, buttonbar, radiogroup1] }">
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+		]]>
+	</fx:Script>
+
+	<views:layout>
+		<s:VerticalLayout horizontalAlign="center"
+						  verticalAlign="middle"
+						  gap="20"/>
+	</views:layout>
+	<fx:Declarations>
+		<s:RadioButtonGroup id="radiogroup1" selectedValue="green"/>
+	</fx:Declarations>
+	
+	<s:ButtonBar id="buttonbar"
+				 dataProvider="{ new ArrayCollection([1,2,3]) }"
+				 selectedIndex="1"/>
+
+	<s:TextInput id="input"
+				 width="90%"/>
+	<s:CheckBox id="check" label="Check Box"/>
+	<s:HSlider id="slider"
+			   width="90%"
+			   value="8"/>
+	
+	<s:VGroup horizontalAlign="left">
+		<s:RadioButton label="Red" groupName="radiogroup1" value="red"/>
+		<s:RadioButton label="Green" groupName="radiogroup1" value="green"/>
+		<s:RadioButton label="Blue" groupName="radiogroup1" value="blue"/>
+	</s:VGroup>
+	
+	<s:VGroup horizontalAlign="center">
+		<s:Label text="Excluded controls:" width="100%"/>
+		<s:TextInput id="input1"
+					 width="90%"/>
+		<s:CheckBox id="check1" label="Check Box"/>
+	</s:VGroup>
+		
+	<s:Button label="Leave this page" click="{ navigator.pushView(DummyView) }"/>
+
+</views:RestoringView>
