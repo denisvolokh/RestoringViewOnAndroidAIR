@@ -93,12 +93,9 @@ package views
 				}
 				else
 				{
-					trace((!("id" in target))? target.name:target.id)
-					trace("c.value: ",target[data[idName][0]]);
-					var p : * = data[idName][0];
-					trace("n.value: ",data[idName][1]);
+					var prop : * = data[idName][0];
 					var value : * = data[idName][1];
-					target[p] = value;				
+					target[prop] = value;				
 				}
 			}
 		}
@@ -126,14 +123,17 @@ package views
 			
 			if (data.hasOwnProperty("manuallyAdded"))
 			{
+				var controls : ArrayCollection = findControls();
 				var manuallyAddedControls : Array = data["manuallyAdded"];
 				for (i = 0; i < manuallyAddedControls.length; i++)
 				{
-					var ui1 : * = manuallyAddedControls[i];
-					var idName1 : String = (!("id" in ui1))? ui1.name:ui1.id;
-					if (idName1 in data)
+					var manControl : * = manuallyAddedControls[i];
+					var manControlIdName : String = (!("id" in manControl))? manControl.name:manControl.id;
+					var controlItem : * = findControlByName(manControlIdName);
+					
+					if (manControlIdName in data)
 					{
-						readProperty(ui1)
+						readProperty(controlItem);
 					}
 				}
 				
@@ -168,11 +168,17 @@ package views
 			} 
 		}
 		
-		private function findControlByName(name : String, controls : ArrayCollection):*
+		private function findControlByName(name : String, controls : ArrayCollection = null):*
 		{
+			controls = findControls();
 			for each (var item : * in controls)
 			{
-				if (item.id == name && item.name == name)
+				if (item.id == name)
+				{
+					return item
+				}
+				
+				if (item.name == name)
 				{
 					return item
 				}
